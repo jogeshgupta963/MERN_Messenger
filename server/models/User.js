@@ -17,12 +17,12 @@ const userSchema = new mongoose.Schema({
     maxlength: 255,
   },
   role: {
-    enum: ['User', 'Admin'],
-    default: 'User',
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
   },
   pic: {
     type: 'String',
-    required: [true, 'Pic is required'],
     default:
       'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg',
   },

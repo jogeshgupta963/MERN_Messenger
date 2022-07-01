@@ -6,6 +6,7 @@ import { connect } from './database/db.js'
 import cors from 'cors'
 import 'dotenv/config'
 
+import { router as user } from './routes/user.js'
 const app = express()
 
 //use
@@ -13,10 +14,12 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
-const __dirname = path.resolve()
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+// const __dirname = path.resolve()
+// app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 //routes
+
+app.use('/user', user)
 ;(async function () {
   try {
     await connect(process.env.MONGO_URI)
