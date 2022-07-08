@@ -1,13 +1,14 @@
 import './index.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { HomeScreen } from './Screens'
+import { AuthScreen, HomeScreen } from './Screens'
 
 function App() {
   return (
     <Router>
       <main>
         <Routes>
-          <Route path="/" element={<HomeScreen />} exact />
+          <Route path="/" element={<AuthScreen />} exact />
+          <Route path="/home" element={<HomeScreen />} />
         </Routes>
       </main>
     </Router>

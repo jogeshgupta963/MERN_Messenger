@@ -1,4 +1,4 @@
 import Login from './Login'
 import Signup from './Signup'
-
-export { Login, Signup }
+import Message from './Message'
+export { Login, Signup, Message }

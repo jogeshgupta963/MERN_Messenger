@@ -8,7 +8,7 @@ async function registerUser(req, res) {
     const { name, email, password, pic } = req.body
 
     const user = await User.findOne({ email })
-    if (user) throw new Error('user not found')
+    if (user) throw new Error('user already exists')
     req.body.password = await bcrypt.hash(req.body.password, 10)
     const newUser = await User.create({ ...req.body })
     if (!newUser) throw new Error('Something went wrong!!')
@@ -20,9 +20,17 @@ async function registerUser(req, res) {
       expiresIn: process.env.JWT_COOKIE_EXPIRES_IN,
     })
 
-    res.json(newUser)
+    res.json({
+      status: 'success',
+      msg: 'User registered successfully',
+      data: newUser,
+    })
+    // res.json(newUser)
   } catch (err) {
-    res.json(err.message)
+    res.json({
+      status: 'error',
+      msg: err.message,
+    })
   }
 }
 async function loginUser(req, res) {
@@ -43,9 +51,25 @@ async function loginUser(req, res) {
       expiresIn: process.env.JWT_COOKIE_EXPIRES_IN,
     })
 
-    res.json(user)
+    res.json({
+      status: 'success',
+      msg: 'User logged in successfully',
+      data: user,
+    })
   } catch (err) {
-    res.json(err.message)
+    res.json({
+      status: 'error',
+      msg: err.message,
+    })
   }
 }
-export { registerUser, loginUser }
+async function getAllUsers(req, res) {
+  try {
+    const users = await User.find()
+    res.json(users)
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
+export { registerUser, loginUser, getAllUsers }
