@@ -7,6 +7,7 @@ import cors from 'cors'
 import 'dotenv/config'
 
 import { router as user } from './routes/user.js'
+import { router as chat } from './routes/chat.js'
 const app = express()
 
 //use
@@ -20,6 +21,9 @@ app.use(cookieParser())
 //routes
 
 app.use('/user', user)
+app.use('/chat', chat)
+
+//database
 ;(async function () {
   try {
     await connect(process.env.MONGO_URI)
