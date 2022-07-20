@@ -15,6 +15,7 @@ export const userSlice = createSlice({
       localStorage.setItem('user', JSON.stringify(state.user))
     },
     removeUser: (state) => {
+      localStorage.removeItem('user')
       state.user = {}
     },
   },

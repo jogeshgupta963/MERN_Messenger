@@ -8,12 +8,13 @@ import {
   renameGroupChat,
   addToGroup,
   removeFromGroup,
+  getChatById,
 } from '../controllers/chat.js'
 
 const router = express.Router()
 
 router.route('/').post(auth, accessChat).get(auth, fetchChatsOfUser)
-
+router.route('/:id').get(auth, getChatById)
 router.route('/group').post(auth, createGroupChat)
 
 router.route('/group/rename').put(auth, renameGroupChat)

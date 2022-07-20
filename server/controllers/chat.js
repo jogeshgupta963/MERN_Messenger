@@ -1,5 +1,5 @@
-import Chat from '../models/Chat.js'
 import User from '../models/User.js'
+import Chat from '../models/Chat.js'
 
 // @route   POST /chat
 // @desc    create a new chat
@@ -157,6 +157,20 @@ async function removeFromGroup(req, res) {
   }
 }
 
+async function getChatById(req, res) {
+  try {
+    const { id } = req.params
+    const chat = await Chat.findById(id)
+      .populate('users', '-password')
+      .populate('groupAdmin', '-password')
+      .populate('latestMessage')
+    if (!chat) return res.json('chat not found')
+    res.json(chat)
+  } catch (err) {
+    res.json(err.message)
+  }
+}
+
 export {
   accessChat,
   fetchChatsOfUser,
@@ -164,4 +178,5 @@ export {
   renameGroupChat,
   addToGroup,
   removeFromGroup,
+  getChatById,
 }
