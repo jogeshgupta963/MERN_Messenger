@@ -11,7 +11,7 @@ function Chats() {
         </Col>
         <Col className="mr-5" md={7}>
           <GroupChatModal>
-            <Button className variant="secondary">
+            <Button className variant="secondary mb-2">
               New Group Chat +{' '}
             </Button>
           </GroupChatModal>

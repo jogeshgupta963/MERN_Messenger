@@ -6,7 +6,6 @@ export const fetchChat = createAsyncThunk(
   'chat/fetchChat',
   async ({ chatId }) => {
     try {
-      console.log(chatId)
       const { data } = await axios.get(`/chat/${chatId}`)
 
       return data

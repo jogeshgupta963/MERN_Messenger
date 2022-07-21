@@ -39,8 +39,12 @@ function Header() {
           <Navbar.Toggle />
           Jadooo
           <Dropdown>
-            <Dropdown.Toggle variant="dark" id="dropdown-basic">
-              <i className="fas fa-user px-2"></i>
+            <Dropdown.Toggle
+              className="bg-dark"
+              variant="dark"
+              id="dropdown-basic"
+            >
+              <i className="bg-dark fas fa-user px-2"></i>
               {user.name}
             </Dropdown.Toggle>
             <Dropdown.Menu

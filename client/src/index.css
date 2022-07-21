@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,200&display=swap');
 
 * {
-  background-color: rgb(30, 29, 29);
-  font-family: 'Poppins', sans-serif;
-  color: antiquewhite;
   /* color: white; */
+  color: antiquewhite;
+  background-color: rgb(30, 29, 29);
+}
+body {
+  font-family: 'Poppins', sans-serif;
 }
 .home-container {
   display: flex;

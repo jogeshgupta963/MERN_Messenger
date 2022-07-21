@@ -11,12 +11,13 @@ function HomeScreen() {
       <Row
         style={{
           border: '2px solid white ',
-          height: '100vh',
+          height: '85.5vh',
+          overflow: 'auto',
         }}
         className="m-4"
       >
         <Col
-          md={3}
+          md={4}
           style={{
             borderRight: '2px solid white',
           }}

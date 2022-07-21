@@ -8,6 +8,7 @@ import 'dotenv/config'
 
 import { router as user } from './routes/user.js'
 import { router as chat } from './routes/chat.js'
+import { router as message } from './routes/message.js'
 const app = express()
 
 //use
@@ -22,6 +23,7 @@ app.use(cookieParser())
 
 app.use('/user', user)
 app.use('/chat', chat)
+app.use('/message', message)
 
 //database
 ;(async function () {

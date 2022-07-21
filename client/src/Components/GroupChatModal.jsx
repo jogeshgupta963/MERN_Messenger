@@ -25,6 +25,20 @@ function GroupChatModal({ children }) {
       console.log(error)
     }
   }
+  const createHandle = async (e) => {
+    try {
+      if (!groupChatName || selectedUsers.length < 2) {
+        throw new Error('Please fill all the fields')
+      }
+      const { data } = await axios.post('/chat/group', {
+        name: groupChatName.current.value,
+        users: JSON.stringify(selectedUsers.map((user) => user._id)),
+      })
+      window.location.reload()
+    } catch (err) {
+      console.log(err)
+    }
+  }
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   return (
@@ -63,36 +77,7 @@ function GroupChatModal({ children }) {
                 >
                   Participants :
                 </Form.Label>
-                {selectedUsers.length > 0 && (
-                  <Stack direction="horizontal" gap={3}>
-                    {selectedUsers.map((user) => (
-                      <div
-                        style={{
-                          backgroundColor: 'black',
-                          borderRadius: '25%',
-                          cursor: 'pointer',
-                        }}
-                        onClick={() => {
-                          setSelectedUsers(
-                            selectedUsers.filter(
-                              (selectedUser) => selectedUser._id !== user._id,
-                            ),
-                          )
-                        }}
-                        className="p-2"
-                        key={user._id}
-                      >
-                        <span
-                          style={{
-                            backgroundColor: 'black',
-                          }}
-                        >
-                          {user.name}
-                        </span>
-                      </div>
-                    ))}
-                  </Stack>
-                )}
+
                 <Form.Control
                   type="text"
                   ref={search}
@@ -106,7 +91,7 @@ function GroupChatModal({ children }) {
             </div>
           </Row>
           {searchUser.length > 0 && (
-            <Stack gap={2}>
+            <Stack gap={2} style={{ scroll: 'auto' }}>
               {searchUser.map((user) => (
                 <div
                   key={user._id}
@@ -114,9 +99,17 @@ function GroupChatModal({ children }) {
                     cursor: 'pointer',
                     borderRadius: '1rem',
                   }}
-                  className=" bg-dark p-3 hover-shadow text-antiquewhite"
+                  className={
+                    selectedUsers.includes(user)
+                      ? ' bg-light p-3  hover-shadow text-black'
+                      : ' bg-dark p-3 hover-shadow text-antiquewhite'
+                  }
                   onClick={() => {
                     if (selectedUsers.includes(user)) {
+                      let arr = selectedUsers.filter(
+                        (ele) => ele._id !== user._id,
+                      )
+                      setSelectedUsers(arr)
                       return
                     }
                     setSelectedUsers([...selectedUsers, user])
@@ -124,7 +117,11 @@ function GroupChatModal({ children }) {
                 >
                   <div
                     key={user._id}
-                    className=" bg-dark  hover-shadow text-antiquewhite"
+                    className={
+                      selectedUsers.includes(user)
+                        ? ' bg-light  hover-shadow text-black'
+                        : ' bg-dark  hover-shadow text-antiquewhite'
+                    }
                   >
                     {user.name}
                   </div>
@@ -137,8 +134,8 @@ function GroupChatModal({ children }) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="success" onClick={createHandle}>
+            Create Chat
           </Button>
         </Modal.Footer>
       </Modal>

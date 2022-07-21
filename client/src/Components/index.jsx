@@ -8,8 +8,9 @@ import SearchBox from './SearchBox'
 import ProfileModal from './ProfileModal'
 import SearchUser from './SearchUser'
 import MyChats from './MyChats'
-
+import ChatMessage from './ChatMessage'
 export {
+  ChatMessage,
   SearchUser,
   MyChats,
   Login,
