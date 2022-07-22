@@ -20,7 +20,7 @@ function ChatMessage() {
   }
 
   return (
-    <>
+    <div style={{ overflow: 'none' }}>
       <header>
         <Navbar style={{ borderRadius: '10px', ...bgCol }} className=" mt-2">
           <Container style={bgCol}>
@@ -39,7 +39,7 @@ function ChatMessage() {
         </Navbar>
       </header>
       <MessageBox />
-    </> // eslint-disable-line
+    </div>
   )
 }
 

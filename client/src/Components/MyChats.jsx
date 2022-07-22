@@ -3,7 +3,6 @@ import { fetchMyChats } from '../redux/myChats'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Stack } from 'react-bootstrap'
 import { fetchChat } from '../redux/chat'
-import axios from 'axios'
 
 function MyChats() {
   const dispatch = useDispatch()
@@ -23,7 +22,7 @@ function MyChats() {
         <Stack gap={2}>
           {myChats.map((singleChat) => (
             <div
-              key={singleChat.id}
+              key={singleChat._id}
               style={{
                 cursor: 'pointer',
 

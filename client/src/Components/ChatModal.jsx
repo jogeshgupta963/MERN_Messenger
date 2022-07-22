@@ -181,7 +181,7 @@ function ChatModal({ children, chatName }) {
           <ListGroup className="mt-2">
             {chat.users.map((aUser) => (
               <>
-                <ListGroup.Item className="bg-secondary">
+                <ListGroup.Item key={aUser._id} className="bg-secondary">
                   <img
                     src={aUser.pic}
                     style={{ width: '2rem', borderRadius: '50%' }}

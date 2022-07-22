@@ -1,15 +1,20 @@
 import axios from 'axios'
-import React, { useRef, useState } from 'react'
-import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { Button, Container, Form, InputGroup, Row } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import Message from './Message'
-
+import { fetchchatMessages } from '../redux/chatMessages'
+import MessageDisplay from './MessageDisplay'
+import socket from '../socket'
 function MessageBox() {
-  // const content = useRef('')
   const [msg, setMsg] = useState()
   const [content, setContent] = useState('')
-  const [messages, setMessages] = useState([])
+  const [dummy, setDummy] = useState(false)
   const { chat } = useSelector((state) => state.chat)
+  const { user } = useSelector((state) => state.user)
+  const { chatMessages } = useSelector((state) => state.chatMessages)
+  const dispatch = useDispatch()
+
   const sendMessage = async (e) => {
     e.preventDefault()
     try {
@@ -25,9 +30,10 @@ function MessageBox() {
         content: content,
         chatId: chat._id,
       })
-      // content.current.value = ''
+      socket.emit('new_message', data)
+
       setContent('')
-      setMessages([...messages, data])
+      setDummy(!dummy)
     } catch (err) {
       setMsg({
         variant: 'danger',
@@ -35,23 +41,19 @@ function MessageBox() {
       })
     }
   }
+
+  useEffect(() => {
+    if (chat) {
+      dispatch(fetchchatMessages({ id: chat._id }))
+      socket.emit('join_chat', chat._id)
+    }
+  }, [chat, dispatch, dummy])
+
   return (
     <>
       {msg && <Message variant={msg.variant} msg={msg.message} />}
-      <div
-        style={{
-          height: '68%',
-          overflow: 'auto',
-          borderRadius: '1rem',
-          backgroundColor: '#292524',
-        }}
-        className="mt-1"
-      >
-        <div
-          style={{ height: '95.7%', backgroundColor: '#292524' }}
-          className="m-2"
-        ></div>
-      </div>
+
+      <MessageDisplay />
 
       <InputGroup className="my-3">
         <Form.Control
